@@ -22,11 +22,33 @@ abstract class Product extends Model
 
     abstract function setValues($values): void;
 
+    public function isUnique($sku) : string
+    {
+        $conn = $this->databaseConnection();
+        $sql = "SELECT `sku` FROM `view_product` WHERE `sku` = '$sku'";
+        $result = $conn->query($sql);
+
+        if($result->num_rows > 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    
+        if (!mysqli_error($conn)) {
+
+            return ["success_message" => $result];
+        } else {
+            return ["error_message" => mysqli_error($conn)];
+
+        }
+    }
+    
     public function save(): array
     {
-        $this->databaseConnection();
-        return ['error_message' => 'SKU already exists!'];
-        if(!$this->isUnqiue($this->getSku())){
+        $sku = $this->getSku();
+       // $this->databaseConnection();
+        if(!$this->isUnique($sku)){
             return ['error_message' => 'SKU already exists!'];
         }
 

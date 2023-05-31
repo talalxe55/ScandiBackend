@@ -42,28 +42,6 @@ class Model extends SchemaDB
         }
     }
 
-    public function isUnique(string $product_sku): string
-    {
-
-        
-
-        $conn = $this->databaseConnection();
-        $sql = "SELECT sku FROM view_product WHERE sku LIKE %($product_sku)%";
-        $result = $conn->query($sql);
-
-        if(count($result) > 0){
-            return false;
-        }
-        
-        if (!mysqli_error($conn)) {
-
-            return ["success_message" => "Product(s) successfully deleted"];
-        } else {
-            return ["error_message" => mysqli_error($conn)];
-
-        }
-    }
-
     public function save()
     {
         // TODO: to be implemented in the Product Class

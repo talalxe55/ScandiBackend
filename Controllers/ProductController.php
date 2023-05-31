@@ -41,6 +41,10 @@ class ProductController extends Model
             $incomingRequest['price']
         );
 
+        // if(!$incomingProduct->isUnique($incomingRequest['sku'])){
+        //     self::outputResponse(["error_message" => 'SKU already exists!']);
+        // }
+
         $incomingProduct->setValues([
             'size' => $incomingRequest['size'],
             'height' => $incomingRequest['height'],
