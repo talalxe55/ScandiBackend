@@ -32,7 +32,6 @@ class ProductController extends Model
 
     public static function create()
     {
-
         $incomingRequest = $_POST;
 
         $incomingProduct = ProductFactory::build(

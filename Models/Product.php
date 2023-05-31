@@ -25,6 +25,10 @@ abstract class Product extends Model
     public function save(): array
     {
         $this->databaseConnection();
+        return ['error_message' => 'SKU already exists!'];
+        if(!$this->isUnqiue($this->getSku())){
+            return ['error_message' => 'SKU already exists!'];
+        }
 
         $stmt = $this->conn->prepare("
     INSERT INTO {$this->table_name}
